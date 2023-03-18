@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopNewAge</title>
+</head>
+
+<body>
+    <iframe id="myIframe" src="http://127.0.0.1:5500/app1/index.html" style="display: none;"></iframe>
+    <h1>SNA - Current Zipcode - <span id="zipcode"></span></h1>
+    <input id="input" placeholder="Enter your Zipcode" type="text" />
+    <input type="submit" onclick="handleSubmitClick()" />
+    <script>
+        window.addEventListener('load', () => {
+            const zipcodeSpan = document.getElementById("zipcode");
+            const zipcode = localStorage.getItem("zipcode")
+            zipcodeSpan.innerText = zipcode;
+
+        })
+        const handleSubmitClick = (e) => {
+            const zipValue = document.getElementById("input").value;
+            const iframe = document.getElementById("myIframe");
+            const wind = iframe.contentWindow;
+            const data = {
+                zipcode: zipValue
+            }
+            wind.postMessage(JSON.stringify(data), "*")
+            window.location.reload()
+        }
+        window.addEventListener("message", (e) => {
+            console.log(e)
+            if (e.origin !== "http://127.0.0.1:5500") {
+                return;
+            }
+            const dataParsed = JSON.parse(e.data);
+            if (typeof dataParsed.zipcode !== "undefined") {
+                localStorage.setItem("zipcode", dataParsed.zipcode)
+            }   
+        })
+    </script>
+</body>
+
+</html>
