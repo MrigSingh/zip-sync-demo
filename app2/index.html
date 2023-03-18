@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <iframe id="myIframe" src="http://127.0.0.1:5500/app1/index.html" style="display: none;"></iframe>
+    <iframe id="myIframe" src="https://main.d3mkm2556m3nyz.amplifyapp.com/app1/index.html" style="display: none;"></iframe>
     <h1>SNA - Current Zipcode - <span id="zipcode"></span></h1>
     <input id="input" placeholder="Enter your Zipcode" type="text" />
     <input type="submit" onclick="handleSubmitClick()" />
@@ -32,7 +32,7 @@
         }
         window.addEventListener("message", (e) => {
             console.log(e)
-            if (e.origin !== "http://127.0.0.1:5500") {
+            if (e.origin !== "https://main.d3mkm2556m3nyz.amplifyapp.com") {
                 return;
             }
             const dataParsed = JSON.parse(e.data);
